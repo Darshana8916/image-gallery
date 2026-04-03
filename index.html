@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Gallery</title>
+    <style>
+        .main-img {
+            width: 600px;
+            height: 400px;
+            border-radius: 15px;
+        }
+        .gallery-container {
+            width: fit-content;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+        }
+        .btn-slide {
+            display: flex;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            border: 1px solid black;
+            margin: 5px;
+        }
+        .preview-img {
+            height: 100px;
+            border-radius: 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            align-items: center;
+        }
+        .gallery-preview {
+            display: flex;
+            overflow-x: scroll;
+            width: 60%;
+            margin: 0 auto;
+        }
+        #title {
+            text-align: center;
+        }
+        #description {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gallery-container">
+        <span class="btn-slide btn-left" onclick="slideLeft()">&lt;</span>
+        <img src="1.jpeg" alt="image1" class="main-img" id="mainImage">
+        <span class=" btn-slide btn-right" onclick="slideRight()">&gt;</span>
+    </div>
+    <h3 id="title">white dog</h3>
+    <p id="description">"A fluffy white Pomeranian puppy holding a blue toy in its mouth. It is standing on fallen
+        autumn leaves with warm orange trees in the background. The puppy looks cute, playful, and full of life. "
+    </p>
+    <div id="gallery-preview" class="gallery-preview"></div>
+    <script>
+        const IMAGE = [
+            {
+                url: "1.jpeg",
+                title: "white dog",
+                description: "A fluffy white Pomeranian puppy holding a blue toy in its mouth. It is standing on fallen autumn leaves with warm orange trees in the background. The puppy looks cute, playful, and full of life.white Pomeranian puppy holding a blue toy in its mouth"
+            },
+            {
+                url: "2.jpeg",
+                title: "Swans",
+                description: "two elegant white swans facing each other on calm water. Their curved necks form the shape of a heart, symbolizing love and harmony. The dark background makes the swans stand out beautifully, giving the image a romantic and peaceful feel."
+            },
+            {
+                url: "3.jpeg",
+                title: "Sky Lantern Festival",
+                description: "hundreds of glowing sky lanterns floating into the dark night sky. A large crowd below is releasing them together, creating a magical golden glow everywhere. The scene feels peaceful, festive, and dreamy — like a celebration filled with hope and wishes."
+            },
+            {
+                url: "4.jpeg",
+                title: "Lightning",
+                description: "String lights hang delicately across an arched structure as evening sets in. Each bulb emits a warm, soft glow against the deepening dusk sky. The scene feels cozy and romantic, like a quiet moment during a festival or a peaceful night gathering."
+            },
+            {
+                url: "5.jpeg",
+                title: "Golden Retriever Puppy",
+                description: "an adorable golden retriever puppy running happily on green grass. Its soft fur shines in the sunlight, and it looks playful and energetic. The background is slightly blurred, making the puppy the main focus. golden retriever puppy running happily on green grass."
+            },
+            {
+                url: "6.jpeg",
+                title: "Sunset Silhouettes",
+                description: "A warm sunset glows softly behind tall wildflowers. The flowers appear as dark silhouettes, gently rising against the golden-orange sky. The sun is low, almost touching the horizon, creating a calm, peaceful mood that feels quiet and reflective."
+            },
+            {
+                url: "7.jpeg",
+                title: "Sunflower Field at Sunset",
+                description: "captures a vast field of bright yellow sunflowers stretching to the horizon. The sun is setting in the background, painting the sky in warm orange and golden shades. The flowers are facing the sunlight, creating a beautiful and calm natural landscape."
+            },
+            {
+                url: "8.jpg",
+                title: "Dragons at Sunset",
+                description: "Two dragons glide gracefully over a calm ocean at sunset—one dark and one light blue. Their wings stretch wide as they fly side by side above shimmering water. The sky is painted with pinks, purples, and golds, giving the scene a magical, dreamlike feeling of freedom and companionship."
+            }
+        ]
+        let currentIndex = 1;
+        function showCurrentIndexImage() {
+            const imgElement = document.getElementById("mainImage");
+            const headerElement = document.getElementById("title");
+            const descriptionElement = document.getElementById("description");
+
+            const currentImage = IMAGE[currentIndex];
+
+            imgElement.src = currentImage.url;
+            headerElement.innerText = currentImage.title;
+            descriptionElement.innerText = currentImage.description;
+        }
+        function slideLeft() {
+            if (currentIndex > 0) {
+                currentIndex--;
+            }
+            else {
+                currentIndex = IMAGE.length - 1;
+            }
+
+            showCurrentIndexImage();
+        }
+        function slideRight() {
+            if (currentIndex < IMAGE.length - 1) {
+                currentIndex++;
+            }
+            else {
+                currentIndex = 0;
+            }
+            showCurrentIndexImage();
+        }
+        function showImage(index) {
+            currentIndex = index;
+            showCurrentIndexImage();
+        }
+        function createGalleryPreview() {
+            const galleryPreviewContainer = document.getElementById("gallery-preview");
+            galleryPreviewContainer.innerHTML = "";
+
+            for (let i = 0; i < IMAGE.length; i++) {
+                const currentImg = IMAGE[i];
+                galleryPreviewContainer.innerHTML += `<img src='${currentImg.url}'class='preview-img' onclick='showImage(${i})'/>`;
+            }
+        }
+        createGalleryPreview();
+    </script>
+</body>
+</html>
